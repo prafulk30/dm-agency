@@ -15,6 +15,7 @@ pipeline {
                 sh 'node -v || echo "Node not installed yet"'
             }
         }
+        
         stage('Pipeline Sanity Check') {
             steps {
                 echo 'Pipeline is healthy and running'
