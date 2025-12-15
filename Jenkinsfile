@@ -19,7 +19,7 @@ pipeline {
         stage('Basic Verification 2 - Intentional Failure') {
            steps {
                 echo 'Intentionally breaking the pipeline'
-                sh 'nodeee -v'
+                sh 'node -v'
             }
         }
 
