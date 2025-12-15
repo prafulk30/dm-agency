@@ -21,3 +21,4 @@ Run: `docker run -p 8080:80 astra-digital:latest`
 
 Secrets & CI: placeholders used. See Jenkinsfile and docs for CI details.
 
+CI/CD auto trigger test
