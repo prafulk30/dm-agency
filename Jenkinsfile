@@ -15,5 +15,13 @@ pipeline {
                 sh 'node -v || echo "Node not installed yet"'
             }
         }
+
+        stage('Basic Verification') {
+           steps {
+                echo 'Intentionally breaking the pipeline'
+                sh 'nodeee -v'
+            }
+        }
+
     }
 }
