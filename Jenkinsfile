@@ -15,13 +15,11 @@ pipeline {
                 sh 'node -v || echo "Node not installed yet"'
             }
         }
-
-        stage('Basic Verification 2 - Intentional Failure') {
-           steps {
-                echo 'Intentionally breaking the pipeline'
-                sh 'node -v'
+        stage('Pipeline Sanity Check') {
+            steps {
+                echo 'Pipeline is healthy and running'
+                sh 'echo Jenkins CI is working'
             }
         }
-
     }
 }
