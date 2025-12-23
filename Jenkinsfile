@@ -2,24 +2,17 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout Code') {
+        stage('Checkout') {
             steps {
-                echo 'Checking out dm-agency source code'
+                echo 'Checking out dm-agency repository'
                 checkout scm
             }
         }
 
-        stage('Basic Verification') {
+        stage('Sanity Check') {
             steps {
-                echo 'Pipeline is running successfully'
-                sh 'node -v || echo "Node not installed yet"'
-            }
-        }
-        
-        stage('Pipeline Sanity Check') {
-            steps {
-                echo 'Pipeline is healthy and running'
-                sh 'echo Jenkins CI is working'
+                echo 'CI pipeline is running successfully'
+                sh 'echo Hello from Jenkins'
             }
         }
     }
