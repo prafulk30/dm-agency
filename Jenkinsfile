@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     stages {
+
         stage('Checkout') {
             steps {
                 echo 'Checking out dm-agency repository'
@@ -9,11 +10,14 @@ pipeline {
             }
         }
 
-        stage('Sanity Check') {
+        stage('Docker Build') {
             steps {
-                echo 'CI pipeline is running successfully'
-                sh 'echo Hello from Jenkins'
+                echo 'Building Docker image for dm-agency'
+                sh '''
+                  docker build -t dm-agency:latest .
+                '''
             }
         }
+
     }
 }
