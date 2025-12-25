@@ -11,19 +11,38 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                sh 'docker build -t dm-agency:latest .'
+                sh 'docker build -t dm-agency:${BRANCH_NAME} .'
             }
         }
 
-        stage('Deploy') {
+        stage('Deploy to Staging') {
+            when {
+                branch 'develop'
+            }
             steps {
                 sh '''
-                  docker stop dm-agency-web || true
-                  docker rm dm-agency-web || true
+                  docker stop dm-agency-staging || true
+                  docker rm dm-agency-staging || true
                   docker run -d \
-                    --name dm-agency-web \
+                    --name dm-agency-staging \
+                    -p 8081:80 \
+                    dm-agency:develop
+                '''
+            }
+        }
+
+        stage('Deploy to Production') {
+            when {
+                branch 'main'
+            }
+            steps {
+                sh '''
+                  docker stop dm-agency-prod || true
+                  docker rm dm-agency-prod || true
+                  docker run -d \
+                    --name dm-agency-prod \
                     -p 80:80 \
-                    dm-agency:latest
+                    dm-agency:main
                 '''
             }
         }
