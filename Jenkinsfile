@@ -5,19 +5,27 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                echo 'Checking out dm-agency repository'
                 checkout scm
             }
         }
 
         stage('Docker Build') {
             steps {
-                echo 'Building Docker image for dm-agency'
-                sh '''
-                  docker build -t dm-agency:latest .
-                '''
+                sh 'docker build -t dm-agency:latest .'
             }
         }
 
+        stage('Deploy') {
+            steps {
+                sh '''
+                  docker stop dm-agency-web || true
+                  docker rm dm-agency-web || true
+                  docker run -d \
+                    --name dm-agency-web \
+                    -p 80:80 \
+                    dm-agency:latest
+                '''
+            }
+        }
     }
 }
